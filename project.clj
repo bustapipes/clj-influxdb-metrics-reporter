@@ -23,8 +23,19 @@
                  [org.clojure/tools.logging "0.3.1"]]
   :main ^:skip-aot clj-influxdb-metrics-reporter.core
   :target-path "target/%s"
-  :profiles {:test {:dependencies [[midje "1.7.0"]]
-                    :plugins [[lein-midje "3.1.3"]]}
+  :profiles {:test {:dependencies [[midje "1.8.3"]]
+                    :plugins [[lein-midje "3.2.1"]]}
              :uberjar {:aot :all}}
+  :deploy-repositories [["releases" {:url "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                                     :creds :gpg}
+                         "snapshots" {:url "https://oss.sonatype.org/content/repositories/snapshots/"
+                                      :creds :gpg}]]
+  :scm {:name "git"
+        :url "git@github.com:bustapipes/clj-influxdb-metrics-reporter.git"}
+  :pom-addition [:developers [:developer
+                              [:name "Busta Pipes"]
+                              [:url "https://github.com/bustapipes"]
+                              [:email "bustapipes@gmail.com"]
+                              [:timezone "0"]]]
   :aliases {"repl-test" ["with-profile" "+test" "repl"]
             "test" ["with-profile" "+test" "midje"]})
