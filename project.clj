@@ -13,7 +13,7 @@
 ;
 ; You should have received a copy of the GNU General Public License
 ; along with clj-influxdb-metrics-reporter  If not, see <http://www.gnu.org/licenses/>.
-(defproject com.github.bustapipes/clj-influxdb-metrics-reporter "0.0.2"
+(defproject com.github.bustapipes/clj-influxdb-metrics-reporter "0.0.3-SNAPSHOT"
   :description "Report metrics to Influx DB"
   :url "https://github.com/bustapipes/clj-influxdb-metrics-reporter"
   :license {:name "Lesser General Public License"
