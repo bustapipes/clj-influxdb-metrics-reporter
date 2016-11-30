@@ -89,11 +89,12 @@
     (catch Exception e (log/error "Failure during format preparation: " e))))
 
 (defn- send-metrics [url options]
-  (log/info (str "URL: " url))
   (try
     (let [result @(http/post url options)]
       (if-not (= 204 (:status result))
-        (log/warn (str "Bad status from InfluxDB: " (.trim (:body result))))))
+        (let [body (:body result)
+              message (if body (.trim body) (str "Empty result: " result))]
+          (log/warn (str "Bad status from InfluxDB: " message)))))
     (catch Exception e
       (hash-map :error {:exception e :message (.getMessage e)}))))
 
