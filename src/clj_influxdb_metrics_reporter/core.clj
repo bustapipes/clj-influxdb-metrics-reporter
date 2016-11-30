@@ -52,7 +52,7 @@
 (defmulti influx-value (fn [metric] (keyword (.getName (class metric)))))
 
 (defmethod influx-value :com.codahale.metrics.Counter [metric]
-  (str "value=" (.getCount metric)))
+  (str "count=" (.getCount metric)))
 
 (defmethod influx-value :com.codahale.metrics.Gauge [metric]
   (str "value=" (.getValue metric)))
