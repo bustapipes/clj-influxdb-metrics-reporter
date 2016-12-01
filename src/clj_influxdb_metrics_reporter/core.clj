@@ -52,16 +52,21 @@
 (defmulti influx-value (fn [metric] (keyword (.getName (class metric)))))
 
 (defmethod influx-value :com.codahale.metrics.Counter [metric]
-  (str "count=" (.getCount metric)))
+  (format "count=%di" (.getCount metric)))
 
 (defmethod influx-value :com.codahale.metrics.Gauge [metric]
-  (str "value=" (.getValue metric)))
+  (format "value=%f" (.getValue metric)))
 
 (defmethod influx-value :com.codahale.metrics.Histogram [metric]
-  (str "value=" (.get95thPercentile metric)))
+  (format "count=%di" (.getCount metric)))
 
 (defmethod influx-value :com.codahale.metrics.Meter [metric]
-  (str "value=" (.getMeanRate metric)))
+  (format "count=%di,fifteen-minute=%f,five-minute=%f,one-minute=%f,mean=%f"
+          (.getCount metric)
+          (.getFifteenMinuteRate metric)
+          (.getFiveMinuteRate metric)
+          (.getOneMinuteRate metric)
+          (.getMeanRate metric)))
 
 (defn- connect [config]
   (let [influx-db (:influx-db config)]
